@@ -1,0 +1,64 @@
+name: ps-datamover plugin
+version: 1.0
+rundeckPluginVersion: 1.0
+author: JR Bing
+date: 12/6/13
+providers:
+  - name: datamover
+    service: RemoteScriptNodeStep
+    title: DataMover
+    description: Executes the specified datamover script on a remote node
+    plugin-type: script
+    script-interpreter: /bin/bash
+    script-file: psdmtx.sh
+    script-args: '${config.database_type} ${config.database_name} ${config.connect_id} ${config.connect_password} ${config.app_username} ${config.app_password} ${config.datamover_script}'
+    config:
+      - type: Select
+        name: database_type
+        title: Type
+        description: Database Type
+        default: ORACLE
+        required: true
+        values:
+          - DB2ODBC
+          - DB2UNIX
+          - INFORMIX
+          - MICROSFT
+          - ORACLE
+          - SYBASE
+      - type: String
+        name: database_name
+        title: Database Name
+        description: Environment database name
+        required: true
+        default:
+      - type: String
+        name: connect_id
+        title: Connect ID
+        description: Connect ID used for the environment
+        default: people
+      - type: String
+        name: connect_password
+        title: Connect Password
+        description: Connect password used for the environment
+        required: true
+        default: peop1e
+      - type: String
+        name: app_username
+        title: Username
+        description: Application username
+        required: true
+        default:
+      - type: String
+        name: app_password
+        title: Password
+        description: Application password
+        required: true
+        secure: true
+        default:
+      - type: String
+        name: datamover_script
+        title: Datamover Script
+        description: Full path to the datamover script to be executed
+        required: true
+        default:
